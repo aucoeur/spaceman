@@ -1,5 +1,7 @@
 import random
 
+letters_guessed = []
+
 def load_word():
     '''
     A function that reads a text file of words and randomly selects one to use as the secret word
@@ -43,10 +45,7 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
 
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-
-    pass
-
-
+            
 def is_guess_in_word(guess, secret_word):
     '''
     A function to check if the guessed letter is in the secret word
@@ -61,7 +60,18 @@ def is_guess_in_word(guess, secret_word):
     '''
     #TODO: check if the letter guess is in the secret word
 
-    pass
+    if guess in secret_word and guess not in letters_guessed:
+        letters_guessed.append(guess)
+        print('>> YES ITS HERE. \n')
+        return True
+    elif guess in letters_guessed:
+        print('>> YOU ALREADY GUESSED THAT LETTER')
+        letters_guessed.sort()
+        print('>> Guessed letters: ', *letters_guessed, '\n')
+    else:
+        letters_guessed.append(guess)
+        print('>> YOU WRONG. \n')
+        return False
 
 def spaceman(secret_word):
     '''
@@ -73,12 +83,22 @@ def spaceman(secret_word):
     '''
 
     #TODO: show the player information about the game according to the project spec
+    print('Welcome to Spaceman!')
+    print('The secret word contains: ' + str(len(secret_word)) + ' letters')
+    print('You have 7 incorrect guesses, please enter one word per round')
+    print('------------------------------------')
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
+    while True:
+        guess = input('Enter a letter: ')
+        if len(guess) != 1:
+            print('Please enter one letter at a time.')
+        else:
+            #TODO: Check if the guessed letter is in the secret or not and give the player feedback
+            is_guess_in_word(guess, secret_word)
 
-    #TODO: Check if the guessed letter is in the secret or not and give the player feedback
-
-    #TODO: show the guessed word so far
+            #TODO: show the guessed word so far
+            get_guessed_word(secret_word, letters_guessed)
 
     #TODO: check if the game has been won or lost
 
