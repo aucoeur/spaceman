@@ -29,3 +29,14 @@ def test1():
             ans_list.append(underscore)
 
     print(' '.join(ans_list))
+
+def set_test():
+    i = 0
+    while i < (len(secret_word)):
+        char = secret_word[i]
+
+        if set(test).intersection(char):
+            print(*char)
+        else:
+            print(*'_')
+        i += 1

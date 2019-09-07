@@ -1,7 +1,6 @@
 import random
 
 letters_guessed = []
-tries = 1
 
 def load_word():
     '''
@@ -31,6 +30,17 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
+    
+    for item in secret_word:
+        if item in letters_guessed:
+            answers = []
+            answers.append(item)
+            answer = ' '.join(answers)            
+    
+    if answer == secret_word:
+        return True
+    else:
+        return False
 
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -49,13 +59,14 @@ def get_guessed_word(secret_word, letters_guessed):
     answers = []
 
     for item in secret_word:
-        if item in letters_guessed:
+        reveal = set(letters_guessed).intersection(secret_word)
+        if item in reveal:
             answers.append(item)
         else:
             answers.append('_')
-
+    
     answer = ' '.join(answers)
-    print('Answer: ' + answer)
+    print('Answer: ' + answer + '\n')
       
 def is_guess_in_word(guess, secret_word):
     '''
@@ -70,18 +81,18 @@ def is_guess_in_word(guess, secret_word):
 
     '''
     #TODO: check if the letter guess is in the secret word
-
     if guess in secret_word and guess not in letters_guessed:
         letters_guessed.append(guess)
-        print('>> YES ITS HERE. \n')
+        print('\n>> YES ITS HERE.\n')
         return True
     elif guess in letters_guessed:
         print('>> YOU ALREADY GUESSED THAT LETTER')
-        letters_guessed.sort()
-        print('>> Guessed letters: ', *letters_guessed, '\n')
+        return False
     else:
         letters_guessed.append(guess)
-        print('>> YOU WRONG. \n')
+        print('\n>> NOPE. ')
+        letters_guessed.sort()
+        print('>> Guessed letters: ', *letters_guessed, '\n')
         return False
 
 def spaceman(secret_word):
@@ -100,12 +111,11 @@ def spaceman(secret_word):
     print('------------------------------------')
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
-    #TODO: check if the game has been won or lost
     while True:
         guess = input('Enter a letter: ')
         if len(guess) != 1:
             print('Please enter one letter at a time.')
-        elif guess.isdigit():
+        elif guess.isalpha() == False:
             print('Please enter an letter.')
         else:
             #TODO: Check if the guessed letter is in the secret or not and give the player feedback
@@ -113,6 +123,16 @@ def spaceman(secret_word):
             
             #TODO: show the guessed word so far
             get_guessed_word(secret_word, letters_guessed)
+    
+            #TODO: check if the game has been won or lost
+            wrong = set(letters_guessed).difference(secret_word)   
+
+            if is_word_guessed(secret_word, letters_guessed) == True:
+                print('YOU JUST WON THE GAME')
+            elif len(wrong) > 6:
+                print('YOU JUST LOST THE GAME')
+            else:
+                print('Incorrect Guesses: ' + str(len(wrong)))
 
 #These function calls that will start the game
 secret_word = load_word()
