@@ -40,3 +40,4 @@ def set_test():
         else:
             print(*'_')
         i += 1
+
