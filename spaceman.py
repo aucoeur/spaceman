@@ -18,6 +18,19 @@ def load_word():
     secret_word = random.choice(words_list)
     return secret_word
 
+def restart():
+    play = input('Play again? Y/N: ').lower()
+    while True:
+        if play == 'y' or play == 'yes':
+            letters_guessed.clear()
+            spaceman(secret_word)
+        elif play == 'n' or play == 'no':
+            print('GOODBYE')
+            quit()
+        else:
+            print('Invalid input.  Please enter Y or N. ')
+            continue
+
 def is_word_guessed(secret_word, letters_guessed):
     '''
     A function that checks if all the letters of the secret word have been guessed.
@@ -30,18 +43,13 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    
-    for item in secret_word:
-        if item in letters_guessed:
-            answers = []
-            answers.append(item)
-            answer = ' '.join(answers)            
-    
-    if answer == secret_word:
+
+    reveal = [x for x in secret_word if x in letters_guessed]
+
+    if len(reveal) == len(secret_word):
         return True
     else:
         return False
-
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -131,6 +139,8 @@ def spaceman(secret_word):
                 print('YOU JUST WON THE GAME')
             elif len(wrong) > 6:
                 print('YOU JUST LOST THE GAME')
+                restart()
+                return False
             else:
                 print('Incorrect Guesses: ' + str(len(wrong)))
 
