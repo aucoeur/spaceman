@@ -19,8 +19,8 @@ def load_word():
     return secret_word
 
 def restart():
-    play = input('Play again? Y/N: ').lower()
     while True:
+        play = input('Play again? Y/N: ').lower()
         if play == 'y' or play == 'yes':
             letters_guessed.clear()
             spaceman(secret_word)
@@ -29,7 +29,6 @@ def restart():
             quit()
         else:
             print('Invalid input.  Please enter Y or N. ')
-            continue
 
 def is_word_guessed(secret_word, letters_guessed):
     '''
@@ -94,7 +93,7 @@ def is_guess_in_word(guess, secret_word):
         print('\n>> YES ITS HERE.\n')
         return True
     elif guess in letters_guessed:
-        print('>> YOU ALREADY GUESSED THAT LETTER')
+        print('\n>> YOU ALREADY GUESSED THAT LETTER\n')
         return False
     else:
         letters_guessed.append(guess)
