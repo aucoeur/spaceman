@@ -124,7 +124,7 @@ def spaceman(secret_word):
         if len(guess) != 1:
             print('Please enter one letter at a time.')
         elif guess.isalpha() == False:
-            print('Please enter an letter.')
+            print('THAT IS NOT A LETTER')
         else:
             #TODO: Check if the guessed letter is in the secret or not and give the player feedback
             is_guess_in_word(guess, secret_word)
