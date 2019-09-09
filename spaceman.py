@@ -1,4 +1,4 @@
-import random
+from random import choice
 
 letters_guessed = []
 
@@ -15,14 +15,15 @@ def load_word():
     f.close()
 
     words_list = words_list[0].split(' ')
-    secret_word = random.choice(words_list)
+    secret_word = choice(words_list)
     return secret_word
 
 def restart():
     while True:
-        play = input('Play again? Y/N: ').lower()
+        play = input('\nPlay again? Y/N: ').lower()
         if play == 'y' or play == 'yes':
             letters_guessed.clear()
+            secret_word = load_word()
             spaceman(secret_word)
         elif play == 'n' or play == 'no':
             print('GOODBYE')
@@ -43,7 +44,7 @@ def is_word_guessed(secret_word, letters_guessed):
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
 
-    reveal = [x for x in secret_word if x in letters_guessed]
+    reveal = [char for char in secret_word if char in letters_guessed]
 
     if len(reveal) == len(secret_word):
         return True
@@ -114,12 +115,12 @@ def spaceman(secret_word):
     #TODO: show the player information about the game according to the project spec
     print('Welcome to Spaceman!')
     print('The secret word contains: ' + str(len(secret_word)) + ' letters')
-    print('You have 7 incorrect guesses, please enter one word per round')
+    print('You have 7 incorrect guesses, please enter one letter per round')
     print('------------------------------------')
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
     while True:
-        guess = input('Enter a letter: ')
+        guess = input('Enter a letter: ').lower()
         if len(guess) != 1:
             print('Please enter one letter at a time.')
         elif guess.isalpha() == False:
@@ -136,6 +137,7 @@ def spaceman(secret_word):
 
             if is_word_guessed(secret_word, letters_guessed) == True:
                 print('YOU JUST WON THE GAME')
+                restart()
             elif len(wrong) > 6:
                 print('YOU JUST LOST THE GAME')
                 restart()
