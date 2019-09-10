@@ -66,9 +66,11 @@ def get_guessed_word(secret_word, letters_guessed):
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
     answers = []
 
-    for item in secret_word:
-        reveal = set(letters_guessed).intersection(secret_word)
-        if item in reveal:
+    for item in secret_word: 
+        if item in letters_guessed:
+        # Okay, so I realized this intersection is redundant but I got emotionally attached to it so I left it in because reasons
+        # reveal = set(letters_guessed).intersection(secret_word)
+        # if item in reveal:
             answers.append(item)
         else:
             answers.append('_')
@@ -139,7 +141,7 @@ def spaceman(secret_word):
                 print('YOU JUST WON THE GAME')
                 restart()
             elif len(wrong) > 6:
-                print('YOU JUST LOST THE GAME')
+                print('YOU JUST LOST THE GAME \nThe word was: ' + secret_word)
                 restart()
                 return False
             else:
