@@ -80,7 +80,7 @@ def get_guessed_word(secret_word, letters_guessed):
             answers.append('_')
     
     answer = ' '.join(answers)
-    print('Answer: ' + answer + '\n')
+    return 'Answer: ' + answer
       
 def is_guess_in_word(guess, secret_word):
     '''
